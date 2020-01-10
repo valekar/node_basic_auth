@@ -5,7 +5,8 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [true, "double"],
-    "no-consecutive-blank-lines": false
+    "no-consecutive-blank-lines": false,
+    "arrow-parens": false
   },
   "linterOptions": {
     "exclude": ["./node_modules/**"]

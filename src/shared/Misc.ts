@@ -36,12 +36,13 @@ export const adminMW = async (
 ) => {
   try {
     // Get json-web-token
-    const jwt = req.signedCookies[jwtCookieProps.key];
+    const jwt = req.header("auth-token");
     if (!jwt) {
       throw Error("JWT not present in signed cookie.");
     }
     // Make sure user role is an admin
     const clientData = await jwtService.decodeJwt(jwt);
+    // console.log(clientData.id);
     if (clientData.role === UserRoles.Admin) {
       next();
     } else {
