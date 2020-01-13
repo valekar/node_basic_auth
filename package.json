@@ -25,7 +25,9 @@
     "module-alias": "^2.2.2",
     "morgan": "^1.9.1",
     "randomstring": "^1.1.5",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "mongodb": "^3.4.1",
+    "mongoose": "^5.8.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
