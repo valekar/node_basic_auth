@@ -12,7 +12,8 @@
     "@daos": "dist/daos",
     "@entities": "dist/entities",
     "@shared": "dist/shared",
-    "@server": "dist/Server"
+    "@server": "dist/Server",
+    "@models": "dist/models"
   },
   "dependencies": {
     "bcrypt": "^3.0.7",
@@ -27,7 +28,8 @@
     "randomstring": "^1.1.5",
     "winston": "^3.2.1",
     "mongodb": "^3.4.1",
-    "mongoose": "^5.8.7"
+    "mongoose": "^5.8.7",
+    "node-linkedin": "^0.5.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -42,6 +44,8 @@
     "@types/node": "^13.1.6",
     "@types/randomstring": "^1.1.6",
     "@types/supertest": "^2.0.8",
+    "@types/mongoose": "^5.5.41",
+    "@types/mongodb": "^3.3.14",
     "find": "^0.3.0",
     "fs-extra": "^8.1.0",
     "jasmine": "^3.5.0",

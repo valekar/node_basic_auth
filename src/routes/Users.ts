@@ -40,7 +40,8 @@ router.post("/add", adminMW, async (req: Request, res: Response) => {
     }
     // Add new user
     user.role = UserRoles.Standard;
-    await userDao.add(user);
+    const result = await userDao.add(user);
+    //console.log(result);
     return res.status(CREATED).end();
   } catch (err) {
     logger.error(err.message, err);

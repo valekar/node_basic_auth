@@ -3,6 +3,8 @@ import { Request, Response, Router } from "express";
 import { BAD_REQUEST, OK, UNAUTHORIZED } from "http-status-codes";
 import { UserDao } from "@daos";
 
+var Linkedin = require("node-linkedin");
+
 import {
   paramMissingError,
   loginFailedErr,
@@ -56,6 +58,63 @@ router.post("/login", async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
+  }
+});
+
+/******************************************************************************
+ *                      Logout - "GET /api/oauth/linkedin"
+ ******************************************************************************/
+router.get("/oauth/linkedin", async (req: Request, res: Response) => {
+  try {
+    const scope = ["r_basicprofile", "r_emailaddress", "w_member_social"];
+    const linkedin = Linkedin(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      "http://localhost:3000/api/oauth/linkedin/callback",
+    );
+
+    linkedin.auth.authorize(res, scope);
+  } catch (err) {
+    logger.error(err.message, err);
+    return res.status(BAD_REQUEST).json({ error: err.message });
+  }
+});
+
+/******************************************************************************
+ *                      Logout - "GET /api/oauth/linkedin"
+ ******************************************************************************/
+router.get("/oauth/linkedin/callback", async (req: Request, res: Response) => {
+  try {
+    const linkedin = new Linkedin(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      "http://localhost:3000/api/oauth/linkedin/callback",
+    );
+    linkedin.auth.getAccessToken(
+      res,
+      req.query.code,
+      req.query.state,
+      async (err: any, results: any) => {
+        const { access_token: accessToken } = results;
+
+        if (accessToken) {
+          const linkedin_local = Linkedin.init(accessToken);
+
+          linkedin_local.people.me((error: any, $in: any) => {
+            return res.status(200).json(JSON.stringify($in));
+          });
+
+          // linkedin_local.people.email((error: any, email: any) => {
+          //   return res.status(200).json(JSON.stringify(email));
+          // });
+        }
+
+        return res.redirect("/");
+      },
+    );
+  } catch (err) {
+    logger.error(err.message, err);
+    return res.status(BAD_REQUEST).json({ error: err.message });
   }
 });
 

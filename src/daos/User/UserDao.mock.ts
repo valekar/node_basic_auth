@@ -1,7 +1,14 @@
 import { IUser } from "@entities";
 import { getRandomInt } from "@shared";
 import { MockDaoMock } from "../MockDb/MockDao.mock";
-import { IUserDao } from "./UserDao";
+
+export interface IUserDao {
+  getOne: (email: string) => Promise<IUser | null>;
+  getAll: () => Promise<IUser[]>;
+  add: (user: IUser) => Promise<void>;
+  update: (user: IUser) => Promise<void>;
+  delete: (id: number) => Promise<void>;
+}
 
 export class UserDao extends MockDaoMock implements IUserDao {
   public async getOne(email: string): Promise<IUser | null> {

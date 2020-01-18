@@ -12,11 +12,13 @@
     "strict": true,
     "target": "es6",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@daos": ["src/daos"],
       "@entities": ["src/entities"],
       "@shared": ["src/shared"],
-      "@server": ["src/Server"]
+      "@server": ["src/Server"],
+      "@models": ["src/models"]
     },
     "types": ["node"],
     "typeRoots": ["node_modules/@types"]
